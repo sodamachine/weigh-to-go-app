@@ -14,7 +14,8 @@ function returnHome() {
             <input type="text" id="datepicker">
             <input type="submit" value="Submit">
         </form>
-        <div id="days"></div>`
+        <div id="days"></div>
+        <div id="dayRecords"></div>`
     dayForm = document.getElementById("dayForm")
     dayForm.addEventListener("submit", Day.postDay)
     Day.appendDaysOnHome()

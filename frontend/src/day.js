@@ -8,14 +8,14 @@
 
 class Day {
 
-    // static allDays = []
+    static allDays = []
 
     constructor({date, id, records}){
         this.date = date
         this.id = id
         this.records = records.map(record => new Record(record))
         // records.forEach(record => new Record(record))
-        // Day.allDays.push(this)
+        Day.allDays.push(this)
     }
 
     // get records(){
@@ -84,7 +84,7 @@ class Day {
     }
 
     static appendDaysOnHome(){
-        for (let day of days){
+        for (let day of Day.allDays){
             day.appendDay()
         }
     }
