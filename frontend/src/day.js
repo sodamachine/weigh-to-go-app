@@ -44,6 +44,20 @@ class Day {
         this.appendRecordForm()
     }
 
+    appendRecordForm(){
+        const records = document.getElementById("records")
+        const recordForm = `
+            <form id="recordForm">
+                <label><Weight:</label>
+                <input id="recordWeight"/>
+                <input type="hidden" id="${this.id}"/>
+                <input type="submit" value="Add weight"/>
+            </form>
+            `
+        records.innerHTML += recordForm
+        document.getElementById("recordForm").addEventListener("submit", Record.addRecord.bind(this))
+    }
+
     static fetchDays(){
         fetch("http://localhost:3000/days")
         .then(jsonToJS)
