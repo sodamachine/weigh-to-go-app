@@ -1,3 +1,10 @@
+    // // daysDiv = days
+    // //   dayDiv = day = sending -> appendRecords(dayDiv)
+    //        dayLi = date
+    //        recordUl = sending -> appendRecord(recordUl)
+    //          recordLi = weight
+
+
 class Day {
 
     constructor({date, id, records}){
@@ -8,20 +15,20 @@ class Day {
 
     appendDay(){
         const daysDiv = document.getElementById("days")
-        const div = document.createElement("div")
-        const li = document.createElement("li")
-        li.innerText = this.date
+        const dayDiv = document.createElement("div")
+        const dayLi = document.createElement("li")
+        dayLi.innerText = this.date
         // li.addEventListener('click', this.showDay.bind(this))
-        daysDiv.append(div)
-        div.append(li)
-        this.appendRecords(div)
+        daysDiv.append(dayDiv)
+        dayDiv.append(dayLi)
+        this.appendRecords(dayDiv)
     }
 
-    appendRecords(div){
-        const ul = document.createElement("ul")
-        div.append(ul)
+    appendRecords(dayDiv){
+        const recordUl = document.createElement("ul")
+        dayDiv.append(recordUl)
         for (let record of this.records){
-            record.appendRecord(ul)
+            record.appendRecord(recordUl)
         }
     }
 

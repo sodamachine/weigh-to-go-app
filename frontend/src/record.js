@@ -9,10 +9,10 @@ class Record {
         // Record.allRecords.push(this)
     }
 
-    appendRecord(ul){
-        const li = document.createElement("li")
-        li.innerText = this.weight
-        ul.append(li)
+    appendRecord(recordUl){
+        const recordLi = document.createElement("li")
+        recordLi.innerText = this.weight
+        recordUl.append(recordLi)
     }
 
 }
