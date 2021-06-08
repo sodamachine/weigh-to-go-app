@@ -6,6 +6,17 @@ class Day {
         this.records = records
     }
 
+    appendDay(){
+        const daysDiv = document.getElementById("days")
+        const div = document.createElement("div")
+        const li = document.createElement("li")
+        li.innerText = this.name
+        // li.addEventListener('click', this.showDay.bind(this))
+        daysDiv.append(div)
+        div.append(li)
+        this.appendRecords(div)
+    }
+
     static fetchDays(){
         fetch("http://localhost:3000/days")
         .then(jsonToJS)
