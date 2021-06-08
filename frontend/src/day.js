@@ -48,7 +48,7 @@ class Day {
         const records = document.getElementById("records")
         const recordForm = `
             <form id="recordForm">
-                <label><Weight:</label>
+                <label>Weight:</label>
                 <input id="recordWeight"/>
                 <input type="hidden" id="${this.id}"/>
                 <input type="submit" value="Add weight"/>
@@ -80,10 +80,10 @@ class Day {
 
     static postDay(e){
         e.preventDefault()
-        const userDate = e.target.children[1].value
+        const userInput = e.target.children[1].value
         const body = {
             day: {
-                date: userDate
+                date: userInput
             }
         }
         const options = {
