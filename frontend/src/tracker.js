@@ -1,37 +1,45 @@
 class Tracker {
 
-    static allTrackers = []
+    // static allTrackers = []
 
     constructor({name, id, records}){
         this.name = name
         this.id = id
-        records.forEach(record => new Record(record))
-        Tracker.allTrackers.push(this)
+        // records.forEach(record => new Record(record))
+        // Tracker.allTrackers.push(this)
+        this.records = records
     }
+
+    // get records(){
+    //     return Record.allRecords.filter(record => record.trackerId === this.id)
+    // }
 
     appendTracker(){
         const trackersDiv = document.getElementById("trackers")
         const li = document.createElement("li")
-        const div = document.createElement("div")
+        // const div = document.createElement("div")
         li.innerText = this.name
-        li.addEventListener('click', this.showTrackerPage.bind(this))
-        trackersDiv.append(div)
-        div.append(li)
-        this.appendRecords(div)
+        li.addEventListener('click', this.showTrackers.bind(this))
+        // trackersDiv.append(div)
+        // div.append(li)
+        // this.appendRecords(div)
+        trackersDiv.append(li)
+        appendRecords(this.records, li)
     }
 
     appendRecords(div){
         const ul = document.createElement("ul")
         ul.id = `tracker-${this.id}`
         div.append(ul)
+        debugger
         for (let record of this.records){
             record.appendRecord(ul)
         }
     }
 
-    showTrackerPage(){
+    showTrackers(){
     }
-    
+
     static fetchTrackers(){
         fetch("http://localhost:3000/trackers")
         .then(jsonToJS)

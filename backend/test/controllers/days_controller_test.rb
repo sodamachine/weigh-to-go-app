@@ -1,6 +1,6 @@
 require "test_helper"
 
-class TrackerTest < ActiveSupport::TestCase
+class DaysControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

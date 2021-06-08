@@ -1,4 +1,3 @@
 class Record < ApplicationRecord
-  belongs_to :tracker
-  
+  belongs_to :day
 end

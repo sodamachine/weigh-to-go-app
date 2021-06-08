@@ -10,22 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_03_164800) do
+ActiveRecord::Schema.define(version: 2021_06_08_152119) do
+
+  create_table "days", force: :cascade do |t|
+    t.date "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "records", force: :cascade do |t|
-    t.string "content"
-    t.date "date"
-    t.integer "tracker_id", null: false
+    t.integer "weight"
+    t.integer "day_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["tracker_id"], name: "index_records_on_tracker_id"
+    t.index ["day_id"], name: "index_records_on_day_id"
   end
 
-  create_table "trackers", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  add_foreign_key "records", "trackers"
+  add_foreign_key "records", "days"
 end
