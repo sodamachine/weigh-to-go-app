@@ -1,5 +1,14 @@
 class Tracker {
 
+    static allTrackers = []
+
+    constructor({name, id, records}){
+        this.name = name
+        this.id = id
+        records.forEach(record => new Record(record))
+        Tracker.allTrackers.push(this)
+    }
+
     appendTracker(){
         const trackersDiv = document.getElementById("trackers")
         const li = document.createElement("li")
@@ -9,6 +18,19 @@ class Tracker {
         trackersDiv.append(div)
         div.append(li)
         this.appendRecords(div)
+    }
+
+    appendRecords(div){
+        const ul = document.createElement("ul")
+        ul.id = `tracker-${this.id}`
+        div.append(ul)
+        for (let record of this.records){
+            debugger
+            record.appendRecord(ul)
+        }
+    }
+
+    showTrackerPage(){
     }
     
     static fetchTrackers(){
@@ -22,6 +44,30 @@ class Tracker {
             let newTracker = new Tracker(tracker)
             newTracker.appendTracker()
         }
+    }
+
+    static postTracker(e){
+        e.preventDefault()
+        const userInput = e.target.children[1].value
+        const body = {
+            list: {
+                name: userInput
+            }
+        }
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+        e.target.reset()
+        fetch("http://localhost:3000/trackers", options)
+        .then(jsonToJS)
+        .then(tracker => {
+            let newTracker = new Tracker(tracker)
+            newTracker.appendTracker()
+        })
     }
 
 }
