@@ -1,16 +1,16 @@
 class Day {
 
-    constructor({name, id, records}){
-        this.name = name
+    constructor({date, id, records}){
+        this.date = date
         this.id = id
-        this.records = this.records.map(record => new record(record))
+        this.records = records.map(record => new Record(record))
     }
 
     appendDay(){
         const daysDiv = document.getElementById("days")
         const div = document.createElement("div")
         const li = document.createElement("li")
-        li.innerText = this.name
+        li.innerText = this.date
         // li.addEventListener('click', this.showDay.bind(this))
         daysDiv.append(div)
         div.append(li)
