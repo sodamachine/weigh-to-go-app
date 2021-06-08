@@ -1,4 +1,4 @@
 class TrackerSerializer < ActiveModel::Serializer
-  attributes :id, :content, :tracker_id
-  belongs_to :tracker
+  attributes :id, :name
+  has_many :records
 end
