@@ -7,10 +7,18 @@
 
 class Day {
 
+    static allDays = []
+
     constructor({date, id, records}){
         this.date = date
         this.id = id
-        this.records = records.map(record => new Record(record))
+        // this.records = records.map(record => new Record(record))
+        records.forEach(record => new Record(record))
+        Day.allDays.push(this)
+    }
+
+    get records(){
+        return Record.allRecords.filter(record => record.dayId === this.id)
     }
 
     appendDay(){

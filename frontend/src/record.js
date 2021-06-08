@@ -1,12 +1,12 @@
 class Record {
 
-    // static allRecords = []
+    static allRecords = []
 
     constructor({id, weight, dayId}){
         this.id = id
         this.weight = weight
         this.dayId = dayId
-        // Record.allRecords.push(this)
+        Record.allRecords.push(this)
     }
 
     appendRecord(recordUl){
