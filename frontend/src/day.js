@@ -58,7 +58,7 @@ class Day {
         }
     }
 
-    static appendListsOnReturnHome(){
+    static appendDaysOnHome(){
         for (let day of days){
             day.appendDay()
         }

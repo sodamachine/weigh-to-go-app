@@ -17,5 +17,5 @@ function returnHome() {
         <div id="days"></div>`
     dayForm = document.getElementById("dayForm")
     dayForm.addEventListener("submit", Day.postDay)
-    Day.appendListsOnReturnHome()
+    Day.appendDaysOnHome()
 }
