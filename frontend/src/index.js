@@ -1,6 +1,6 @@
-trackerForm.addEventListener('submit', Tracker.postTracker)
+// dayForm.addEventListener('submit', Day.postDay)
 
-Tracker.fetchTrackers()
+Day.fetchDays()
 
 function jsonToJS(resp) {
     return resp.json()
