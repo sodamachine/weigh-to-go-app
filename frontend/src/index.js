@@ -1,4 +1,5 @@
-// dayForm.addEventListener('submit', Day.postDay)
+const dayForm = document.getElementById('dayForm')
+dayForm.addEventListener('submit', Day.postDay)
 
 Day.fetchDays()
 

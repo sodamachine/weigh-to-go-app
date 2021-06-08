@@ -50,28 +50,29 @@ class Day {
         }
     }
 
-//     static postTracker(e){
-//         e.preventDefault()
-//         const userInput = e.target.children[1].value
-//         const body = {
-//             list: {
-//                 name: userInput
-//             }
-//         }
-//         const options = {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify(body)
-//         }
-//         e.target.reset()
-//         fetch("http://localhost:3000/trackers", options)
-//         .then(jsonToJS)
-//         .then(tracker => {
-//             let newTracker = new Tracker(tracker)
-//             newTracker.appendTracker()
-//         })
-//     }
+    static postDay(e){
+        e.preventDefault()
+        const userInput = e.target.children[1].value
+        const body = {
+            day: {
+                date: userInput
+            }
+        }
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+        e.target.reset()
+        fetch("http://localhost:3000/days", options)
+        .then(jsonToJS)
+        .then(day => {
+            let newDay = new Day(day)
+            newDay.appendDay()
+        })
+    }
 
 }
