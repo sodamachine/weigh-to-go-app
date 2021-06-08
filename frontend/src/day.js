@@ -26,6 +26,7 @@ class Day {
 
     appendRecords(dayDiv){
         const recordUl = document.createElement("ul")
+        recordUl = `day-${this.id}`
         dayDiv.append(recordUl)
         for (let record of this.records){
             record.appendRecord(recordUl)
