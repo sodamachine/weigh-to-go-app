@@ -10,7 +10,9 @@ class Record {
     }
 
     appendRecord(ul){
-        
+        const recordLi = document.createElement("li")
+        recordLi.innerText = this.content
+        ul.append(recordLi)
     }
 
 }

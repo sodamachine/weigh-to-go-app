@@ -25,7 +25,6 @@ class Tracker {
         ul.id = `tracker-${this.id}`
         div.append(ul)
         for (let record of this.records){
-            debugger
             record.appendRecord(ul)
         }
     }
@@ -36,7 +35,7 @@ class Tracker {
     static fetchTrackers(){
         fetch("http://localhost:3000/trackers")
         .then(jsonToJS)
-        .then(this.appendTrackers)
+        .then(trackers => this.appendTrackers(trackers))
     }
 
     static appendTrackers(trackers){
