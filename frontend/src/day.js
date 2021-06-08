@@ -4,22 +4,24 @@
     //        recordUl = sending -> appendRecord(recordUl)
     //          recordLi = weight
 
+// const dayForm = document.getElementById("dayForm")
 
 class Day {
 
-    static allDays = []
+    // static allDays = []
 
     constructor({date, id, records}){
         this.date = date
         this.id = id
-        // this.records = records.map(record => new Record(record))
-        records.forEach(record => new Record(record))
-        Day.allDays.push(this)
+        this.records = records.map(record => new Record(record))
+        // records.forEach(record => new Record(record))
+        // Day.allDays.push(this)
     }
 
-    get records(){
-        return Record.allRecords.filter(record => record.dayId === this.id)
-    }
+    // get records(){
+    //     return Record.allRecords.filter(record => record.dayId === this.id)
+    //     debugger
+    // }
 
     appendDay(){
         const daysDiv = document.getElementById("days")
@@ -54,7 +56,7 @@ class Day {
     }
 
     appendRecordForm(){
-        const records = document.getElementById("records")
+        const dayRecords = document.getElementById("dayRecords")
         const recordForm = `
             <form id="recordForm">
                 <label>Weight:</label>
@@ -63,7 +65,7 @@ class Day {
                 <input type="submit" value="Add weight"/>
             </form>
             `
-        records.innerHTML += recordForm
+        dayRecords.innerHTML += recordForm
         document.getElementById("recordForm").addEventListener("submit", Record.addRecord.bind(this))
     }
 
