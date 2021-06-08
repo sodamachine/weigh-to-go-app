@@ -1,18 +1,15 @@
 class Record {
 
-    static allRecords = []
-
-    constructor({id, content, trackerId}){
+    constructor({id, weight, dayId}){
         this.id = id
-        this.content = content
-        this.trackerId = trackerId
-        Record.allRecords.push(this)
+        this.weight = weight
+        this.dayId = dayId
     }
 
     appendRecord(ul){
-        const recordLi = document.createElement("li")
-        recordLi.innerText = this.content
-        ul.append(recordLi)
+        const li = document.createElement("li")
+        li.innerText = this.weight
+        ul.append(li)
     }
 
 }

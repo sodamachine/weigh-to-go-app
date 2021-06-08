@@ -4,6 +4,7 @@ class Day {
         this.name = name
         this.id = id
         this.records = records
+        // records.forEach(record => new Record(record))
     }
 
     appendDay(){
@@ -15,6 +16,14 @@ class Day {
         daysDiv.append(div)
         div.append(li)
         this.appendRecords(div)
+    }
+
+    appendRecords(div){
+        const ul = document.createElement("ul")
+        div.append(ul)
+        for (let record of this.records){
+            record.appendRecord(ul)
+        }
     }
 
     static fetchDays(){
