@@ -6,17 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>weigh-to-go-app</title>
 
-        <title>jQuery UI Datepicker - Populate alternate field</title>
+        <title>jQuery UI Datepicker - Default functionality</title>
         <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
         <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
         $( function() {
-            $( "#datepicker" ).datepicker({
-            altField: "#alternate",
-            altFormat: "DD, d MM, yy"
-            });
+        $( "#datepicker" ).datepicker();
         } );
         </script>
 
@@ -26,13 +23,14 @@
         <form id="dayForm">
             <label>Log your day</label>
             <input type="text" id="datepicker">
-            <label><Weight:</label>
-            <input type="text" id="weight">
             <input type="submit" value="Submit">
         </form>
         
         <div id="days">
         </div>
+
+        <!-- <div id="records">
+        </div> -->
 
     </div>
 

@@ -18,7 +18,7 @@ class Day {
         const dayDiv = document.createElement("div")
         const dayLi = document.createElement("li")
         dayLi.innerText = this.date
-        // li.addEventListener('click', this.showDay.bind(this))
+        dayLi.addEventListener('click', this.showDay.bind(this))
         daysDiv.append(dayDiv)
         dayDiv.append(dayLi)
         this.appendRecords(dayDiv)
@@ -33,7 +33,30 @@ class Day {
     }
 
     showDay(){
-        
+        const dayContainer = document.getElementById("dayContainer")
+        const homeButton = document.createElement("button")
+        dayContainer.children[1].innerHTML = ""
+        dayContainer.children[0].remove()
+        homeButton.addEventListener('click', returnHome)
+        homeButton.innerText = "Home"
+        dayContainer.append(homeButton)
+        this.appendList()
+        this.appendRecordForm()
+    }
+
+    appendRecordForm(){
+        const records = document.getElementById("records")
+        const recordForm = `
+            <form id="recordForm">
+                <label><Weight:</label>
+                <input id="recordWeight"/>
+                <input type="hidden" id="${this.id}"/>
+                <input type="text" id="weight">
+                <input type="submit" value="Add weight"/>
+            </form>
+            `
+        records.innerHTML += recordForm
+        document.getElementById("recordForm").addEventListener("submit", Record.addRecord.bind(this))
     }
 
     static fetchDays(){
@@ -52,10 +75,10 @@ class Day {
 
     static postDay(e){
         e.preventDefault()
-        const userInput = e.target.children[1].value
+        const userDate = e.target.children[1].value
         const body = {
             day: {
-                date: userInput
+                date: userDate
             }
         }
         const options = {
