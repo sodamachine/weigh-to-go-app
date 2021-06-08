@@ -11,7 +11,7 @@ class Day {
         const div = document.createElement("div")
         const li = document.createElement("li")
         li.innerText = this.name
-        li.addEventListener('click', this.showDay.bind(this))
+        // li.addEventListener('click', this.showDay.bind(this))
         daysDiv.append(div)
         div.append(li)
         this.appendRecords(div)
@@ -21,7 +21,7 @@ class Day {
         const ul = document.createElement("ul")
         div.append(ul)
         for (let record of this.records){
-            record.appendDay(ul)
+            record.appendRecord(ul)
         }
     }
 
