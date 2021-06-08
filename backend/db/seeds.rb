@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Tracker.create(name: "Weight")
+
+Record.create(content: "130 lb", date: "06-01-2021", tracker_id: 1)
