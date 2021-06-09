@@ -4,8 +4,6 @@
     //        recordUl = sending -> appendRecord(recordUl)
     //          recordLi = weight
 
-// const dayForm = document.getElementById("dayForm")
-
 class Day {
 
     static allDays = []
@@ -18,17 +16,12 @@ class Day {
         Day.allDays.push(this)
     }
 
-    // get records(){
-    //     return Record.allRecords.filter(record => record.dayId === this.id)
-    //     debugger
-    // }
-
     appendDay(){
         const daysDiv = document.getElementById("days")
         const dayDiv = document.createElement("div")
         const dayLi = document.createElement("li")
         dayLi.innerText = this.date
-        dayLi.addEventListener('click', this.showDay.bind(this))
+        // dayLi.addEventListener('click', this.showDay.bind(this))
         daysDiv.append(dayDiv)
         dayDiv.append(dayLi)
         this.appendRecords(dayDiv)
@@ -43,30 +36,20 @@ class Day {
         }
     }
 
-    showDay(){
+    appendRecordForm(newDayId){
+        debugger
         const dayContainer = document.getElementById("dayContainer")
-        const homeButton = document.createElement("button")
-        dayContainer.children[1].innerHTML = ""
-        dayContainer.children[0].remove()
-        homeButton.addEventListener('click', returnHome)
-        homeButton.innerText = "Home"
-        dayContainer.append(homeButton)
-        this.appendDay()
-        this.appendRecordForm()
-    }
-
-    appendRecordForm(){
-        const dayRecords = document.getElementById("dayRecords")
-        const recordForm = `
+        const recordForm = document.createElement("div")
+        recordForm.innerHTML = `
             <form id="recordForm">
                 <label>Weight:</label>
                 <input id="recordWeight"/>
-                <input type="hidden" id="${this.id}"/>
+                <input type="hidden" id="${newDayId}"/>
                 <input type="submit" value="Add weight"/>
             </form>
             `
-        dayRecords.innerHTML += recordForm
-        document.getElementById("recordForm").addEventListener("submit", Record.addRecord.bind(this))
+        dayContainer.innerHTML += recordForm
+        document.getElementById("recordForm").addEventListener("submit", postRecord)
     }
 
     static fetchDays(){
@@ -83,18 +66,13 @@ class Day {
         }
     }
 
-    static appendDaysOnHome(){
-        for (let day of Day.allDays){
-            day.appendDay()
-        }
-    }
-
     static postDay(e){
         e.preventDefault()
-        const userInput = e.target.children[1].value
+        const userDate = e.target.children[1].value
+        const userWeight = e.target.children[2].value
         const body = {
             day: {
-                date: userInput
+                date: userDate
             }
         }
         const options = {
@@ -111,6 +89,7 @@ class Day {
         .then(day => {
             let newDay = new Day(day)
             newDay.appendDay()
+            Record.postRecord(newDay.id, userWeight)
         })
     }
 

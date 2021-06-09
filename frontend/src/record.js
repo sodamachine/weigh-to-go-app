@@ -15,14 +15,11 @@ class Record {
         recordUl.append(recordLi)
     }
 
-    static addRecord(e){
-        e.preventDefault()
-        const userInput = e.target.children[1].value
-        const dayId = e.target.children[2].id
+    static postRecord(newDayId, userWeight){
         const body = {
             record: {
-                weight: userInput,
-                day_id: dayId
+                weight: userWeight,
+                day_id: newDayId
             }
         }
         const options = {
@@ -33,7 +30,7 @@ class Record {
             },
             body: JSON.stringify(body)
         }
-        e.target.reset()
+        // e.target.reset()
         fetch("http://localhost:3000/records", options)
         .then(jsonToJS)
         .then(record => {
@@ -42,5 +39,3 @@ class Record {
             newRecord.appendRecord(recordUl)
         })
     }
-
-}
