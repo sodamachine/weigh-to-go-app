@@ -10,21 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_152119) do
+ActiveRecord::Schema.define(version: 0) do
 
-  create_table "days", force: :cascade do |t|
-    t.date "date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "records", force: :cascade do |t|
-    t.integer "weight"
-    t.integer "day_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["day_id"], name: "index_records_on_day_id"
-  end
-
-  add_foreign_key "records", "days"
 end
