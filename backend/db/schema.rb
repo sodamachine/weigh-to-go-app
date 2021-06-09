@@ -10,6 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2021_06_09_021715) do
 
+  create_table "calendars", force: :cascade do |t|
+    t.string "month"
+    t.integer "day"
+    t.integer "year"
+    t.string "weekday"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.integer "weight"
+    t.integer "calendar_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["calendar_id"], name: "index_records_on_calendar_id"
+  end
+
+  add_foreign_key "records", "calendars"
 end
