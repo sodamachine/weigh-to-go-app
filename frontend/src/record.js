@@ -11,11 +11,28 @@ class Record {
         Record.allRecords.push(this)
     }
 
-    appendRecord(){
-        debugger
-    }
+    // selectDate(e){
+    //     //     let timestamp = new Date(
+    // //         today.getFullYear(),
+    // //         today.getMonth(),
+    // //         i
+    // //     ).getTime()
+    // //     document.querySelector(".cell.today")?.classList.remove("today");
+    // //         cell.classList.add("today");
+    // //         debugger
+    // //         Record.addRecord(today)
+    // //     if (timestamp === today.getTime()) {
+    // //         cell.classList.add("today");
+    // //   } 
 
-    static appendDays(){
+    // // }
+    // }
+
+    // addRecord(dayDate){
+    //     debugger
+    // }
+
+    static appendDays(trackerId = 0){
         const day = document.createElement("div")
         let monthLength = new Date(
             today.getFullYear(),
@@ -30,16 +47,25 @@ class Record {
         }
         for (let i = 1; i <= monthLength; i++){
             let dayDate = document.createElement("span")
+            // dayDate.addEventListener('click', selectDate)
             dayDate.classList.add("cell")
-            dayDate.innerHTML = `${i}<br><br>`            
-            for (let record of this.allRecords){
-                let date = new Date(`${record.date}`).getDate()
-                if (date == i-1){
-                    dayDate.innerHTML += `<li>${record.num} ${record.unit}</li>`
-                }
-            }                
+            dayDate.innerHTML = `${i}<br><br>`
             day.appendChild(dayDate)
+            // this.appendRecords(trackerId, i, dayDate)
         }
         calendar.appendChild(day)
     }
+
+    // static appendRecords(trackerId, i, dayDate){
+    //     for (record of Record.allRecords){
+    //         if (trackerId > 0){
+    //             record.tracker.id == trackerId
+    //             let date = new Date(`${record.date}`).getDate()
+    //         }
+    //         if (date == i-1){
+    //             dayDate.innerHTML += `<li>${record.num} ${record.unit}</li>`
+    //         }
+    //     }
+    // }
+
 }

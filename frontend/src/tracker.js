@@ -1,6 +1,3 @@
-const header = document.createElement("div")
-let today = new Date()
-
 class Tracker {
 
     static allTrackers = []
@@ -14,24 +11,18 @@ class Tracker {
     }
 
     appendTracker(navBar){
-        const navBtn = document.createElement("button")
-        navBtn.innerText = this.name
-        navBtn.id = this.id
-        navBtn.classList.add("button")
-        navBar.appendChild(navBtn)
-        calendar.appendChild(navBar)
-        // add EL
+        const trackerBtn = document.createElement("button")
+        trackerBtn.innerText = this.name
+        trackerBtn.id = this.id
+        trackerBtn.classList.add("button")
+        // trackerBtn.addEventListener('click', () => Record.appendDays(trackerBtn.id))
+        navBar.appendChild(trackerBtn)
     }
 
-    static fetchTrackers(){
-        fetch("http://localhost:3000/trackers")
-        .then(jsonToJS)
-        .then(this.appendCalendar)
-    }
-
-    static appendCalendar(trackers){
-        const navBar = document.createElement("div")
+    static appendCalendar(){
+        const header = document.createElement("div")
         const month = document.createElement("div")
+        const weekday = document.createElement("div")
         const monthList = new Array(
             "January",
             "February",
@@ -46,19 +37,6 @@ class Tracker {
             "November",
             "December"
         )
-        header.classList.add("header")
-        month.classList.add("month")
-        month.innerText = monthList[today.getMonth()] + " " + today.getFullYear()
-        header.appendChild(month)
-        calendar.appendChild(header)
-
-        for (let tracker of trackers){
-            let newTracker = new Tracker(tracker)
-            newTracker.appendTracker(navBar)
-        }
-        calendar.appendChild(navBar)
-
-        const weekday = document.createElement("div")
         let dayList = new Array(
             "SUN",
             "MON",
@@ -68,6 +46,10 @@ class Tracker {
             "FRI",
             "SAT"
         )
+        header.classList.add("header")
+        month.classList.add("month")
+        weekday.classList.add("weekday")
+        month.innerText = monthList[today.getMonth()] + " " + today.getFullYear()
         for (let i = 0; i < dayList.length; i++){
             let cell = document.createElement("span")
             cell.classList.add("cell")
@@ -75,9 +57,28 @@ class Tracker {
             cell.innerText = dayList[i].substring(0, 3)
             weekday.appendChild(cell)
         }
+        header.appendChild(month)
+        calendar.appendChild(header)
         calendar.appendChild(weekday)
-
-        Record.appendDays()
-
+        this.fetchTrackers()
     }
+
+    static fetchTrackers(){
+        fetch("http://localhost:3000/trackers")
+        .then(jsonToJS)
+        .then(this.appendTrackers)
+    }
+    
+    static appendTrackers(trackers){
+        const navBar = document.createElement("div")
+        for (let tracker of trackers){
+            let newTracker = new Tracker(tracker)
+            newTracker.appendTracker(navBar)
+        }
+        calendar.appendChild(navBar)
+        Record.appendDays()
+    }
+
+    
+
 }
