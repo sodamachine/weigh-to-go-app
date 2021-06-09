@@ -1,29 +1,29 @@
 let monthList = new Array(
-    "january",
-    "february",
-    "march",
-    "april",
-    "may",
-    "june",
-    "july",
-    "august",
-    "september",
-    "october",
-    "november",
-    "december"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
   )
 
   let dayList = new Array(
-    "sunday",
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday"
+    "SUN",
+    "MON",
+    "TUE",
+    "WED",
+    "THU",
+    "FRI",
+    "SAT"
   )
 
-  let today = new Date()
+  let calendarDiv = document.getElementById("calendar")
   
   class Calendar {
 
@@ -33,14 +33,8 @@ let monthList = new Array(
         this.records = records.map(record => new Record(record))
     }
 
-    static appendCalendar(){
-        let calendarDiv = document.getElementById("calendar")
-        let currentMonth = new Date(today.getFullYear(), today.getMonth(), 1)
-        let header = document.createElement("div")
-        header.classList.add("header")
-        calendarDiv.append(header)
+    
 
-    }
 
 
 
