@@ -7,4 +7,4 @@ function jsonToJS(resp) {
     return resp.json()
 }
 
-Tracker.appendCalendar()
+Tracker.fetchTrackers()

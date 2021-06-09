@@ -2,41 +2,44 @@ class Record {
 
     static allRecords = []
 
-    constructor({id, weight, dayId}){
+    constructor({date, id, num, tracker_id, unit}){
+        this.date = date
         this.id = id
-        this.weight = weight
-        this.dayId = dayId
+        this.num = num
+        this.trackerId = tracker_id
+        this.unit = unit
         Record.allRecords.push(this)
     }
 
-    appendRecord(recordUl){
-        const recordLi = document.createElement("li")
-        recordLi.innerText = this.weight
-        recordUl.append(recordLi)
+    appendRecord(){
+        debugger
     }
 
-    static postRecord(newDayId, userWeight){
-        const body = {
-            record: {
-                weight: userWeight,
-                day_id: newDayId
-            }
+    static appendDays(){
+        const day = document.createElement("div")
+        let monthLength = new Date(
+            today.getFullYear(),
+            today.getMonth() + 1,
+            0
+        ).getDate()
+        for (let i = 1; i < today.getDay(); i++){
+            let dayBlank = document.createElement("span")
+            dayBlank.classList.add("cell")
+            dayBlank.classList.add("empty")
+            day.appendChild(dayBlank)
         }
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            body: JSON.stringify(body)
+        for (let i = 1; i <= monthLength; i++){
+            let dayDate = document.createElement("span")
+            dayDate.classList.add("cell")
+            dayDate.innerHTML = `${i}<br><br>`            
+            for (let record of this.allRecords){
+                let date = new Date(`${record.date}`).getDate()
+                if (date == i-1){
+                    dayDate.innerHTML += `<li>${record.num} ${record.unit}</li>`
+                }
+            }                
+            day.appendChild(dayDate)
         }
-        // e.target.reset()
-        fetch("http://localhost:3000/records", options)
-        .then(jsonToJS)
-        .then(record => {
-            let recordUl = document.getElementById(`day-${record.day_id}`)
-            let newRecord = new Record(record)
-            newRecord.appendRecord(recordUl)
-        })
+        calendar.appendChild(day)
     }
 }

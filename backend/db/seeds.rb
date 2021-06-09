@@ -9,3 +9,7 @@
 Tracker.create(name: "Weight", id: 1)
 Tracker.create(name: "Waist", id: 2)
 Tracker.create(name: "Activity", id: 3)
+
+Record.create(date: "01/06/2021", num: 140, unit: "lbs", tracker_id: 1)
+Record.create(date: "02/06/2021", num: 139, unit: "lbs", tracker_id: 1)
+Record.create(date: "03/06/2021", num: 138, unit: "lbs", tracker_id: 1)
