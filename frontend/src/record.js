@@ -39,3 +39,4 @@ class Record {
             newRecord.appendRecord(recordUl)
         })
     }
+}
