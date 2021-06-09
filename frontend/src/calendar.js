@@ -33,8 +33,12 @@ let monthList = new Array(
         this.records = records.map(record => new Record(record))
     }
 
-    
-
+    static appendCalendar(){
+        let headerDiv = document.createElement("div")
+        headerDiv.classList.add("header")
+        calendarDiv.append(headerDiv)
+        this.appendMonth(headerDiv)
+    }
 
 
 
