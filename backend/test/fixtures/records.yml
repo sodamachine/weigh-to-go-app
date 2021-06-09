@@ -1,9 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  weight: MyString
-  calendar: one
+  tracker: one
 
 two:
-  weight: MyString
-  calendar: two
+  tracker: two

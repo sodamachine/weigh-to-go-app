@@ -11,9 +11,9 @@ let monthList = new Array(
     "October",
     "November",
     "December"
-  )
+)
 
-  let dayList = new Array(
+let dayList = new Array(
     "SUN",
     "MON",
     "TUE",
@@ -21,15 +21,22 @@ let monthList = new Array(
     "THU",
     "FRI",
     "SAT"
-  )
+)
 
-  let calendarDiv = document.getElementById("calendar")
-  let today = new Date()
-  let monthLength = new Date(
+let today = new Date()
+
+let currentMonth = new Date(
+    today.getFullYear(), 
+    today.getMonth(), 1
+)
+
+let monthLength = new Date(
     today.getFullYear(),
     today.getMonth() + 1,
     0
 )
+
+let calendarDiv = document.getElementById("calendar")
   
   class Calendar {
 
@@ -47,10 +54,6 @@ let monthList = new Array(
     }
 
     static appendMonth(headerDiv){
-        // // let currentMonth = new Date(
-        //     today.getFullYear(), 
-        //     today.getMonth(), 1
-        //     )
         let monthDiv = document.createElement("div")
         monthDiv.classList.add("month")
         monthDiv.innerText = monthList[today.getMonth()] + " " + today.getFullYear()
@@ -64,7 +67,7 @@ let monthList = new Array(
             let weekdaySpan = document.createElement("span")
             weekdaySpan.classList.add("cell")
             weekdaySpan.classList.add("day")
-            weekdaySpan.innerText = dayList [i].substring(0, 3)
+            weekdaySpan.innerText = dayList[i].substring(0, 3)
             weekdayDiv.append(weekdaySpan)
             calendarDiv.append(weekdayDiv)
         }
@@ -74,7 +77,7 @@ let monthList = new Array(
         //     daySpan.classList.add("empty")
         // }
         calendarDiv.append(weekdayDiv)
-        this.appendDays()
+        // this.appendDays()
     }
 
     static appendDays(){
@@ -89,9 +92,11 @@ let monthList = new Array(
         this.append
     }
 
-
-
-
+    static fetchCalendar(){
+        fetch("http://localhost:3000/calendars")
+        .then(jsonToJS)
+        .then(this.appendCalendar)
+    }
 
 
 
