@@ -16,44 +16,27 @@
         $( "#datepicker" ).datepicker();
         } );
         </script> -->
-        
-        <link rel="stylesheet" href="styles/calendar.css" />
-        <!-- <script src="src/calendar.js"></script>
-        <script>
-            window.onload() {
-                window.myCalendar.init()
-                console.log(myCalendar.privateVar)
-            }
-        </script> -->
 
 </head>
 <body>
 
-    <div id="dayContainer">
-        <form id="dayForm">
+    <div id="calendar">
+        <!-- <form id="dayForm">
             <label>Log your day</label>
             <input type="text" id="datepicker">
             <input type="text" id="weightField">
             <input type="submit" value="Submit">
-        </form>
+        </form> -->
         <!-- <div id="dayRecords"></div> -->
+
+        <div id="trackers"></div>
+
+        <div id="records"></div>
+
     </div>
-
-    <div id="days"></div>
-
-    <div id="calendar"></div>
     
-
-    <!-- <script src="src/day.js"></script> -->
+    <script src="src/tracker.js"></script>
     <script src="src/record.js"></script>
-    <script src="src/calendar.js"></script>
-    <!-- <script>
-        window.onload = function () {
-          myCalendar.init();
-          console.log(myCalendar.privateVar);
-        };
-      </script> -->
-    
     <script src="src/index.js"></script>
 
 </body>
