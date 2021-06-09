@@ -13,10 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_06_09_021715) do
 
   create_table "calendars", force: :cascade do |t|
-    t.string "month"
-    t.integer "day"
-    t.integer "year"
-    t.string "weekday"
+    t.date "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
