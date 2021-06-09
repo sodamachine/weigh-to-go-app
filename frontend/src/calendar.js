@@ -40,6 +40,23 @@ let monthList = new Array(
         this.appendMonth(headerDiv)
     }
 
+    static appendMonth(headerDiv){
+        let today = new Date()
+        // // let currentMonth = new Date(
+        //     today.getFullYear(), 
+        //     today.getMonth(), 1
+        //     )
+        let monthDiv = document.createElement("div")
+        // let monthLength = new Date(
+        //     today.getFullYear(),
+        //     today.getMonth() + 1,
+        //     0
+        // )
+        monthDiv.classList.add("month")
+        monthDiv.innerText = monthList[today.getMonth()] + " " + today.getFullYear()
+        headerDiv.append(monthDiv)
+        this.appendWeekdays(today)
+    }
 
 
 
