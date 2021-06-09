@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_06_09_072401) do
 
   create_table "records", force: :cascade do |t|
+    t.date "date"
     t.integer "num"
     t.string "unit"
     t.integer "tracker_id", null: false
