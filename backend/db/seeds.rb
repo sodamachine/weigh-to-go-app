@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Tracker.create(name: "Weight", id: 1)
-Tracker.create(name: "Waist", id: 2)
-Tracker.create(name: "Activity", id: 3)
+Tracker.create(name: "Exercise", id: 2)
+Tracker.create(name: "Diet", id: 3)
 
-Record.create(date: "01/06/2021", num: 140, unit: "lbs", tracker_id: 1)
-Record.create(date: "02/06/2021", num: 139, unit: "lbs", tracker_id: 1)
-Record.create(date: "03/06/2021", num: 138, unit: "lbs", tracker_id: 1)
+Record.create(date: "2021-06-10", num: 140, unit: "lbs", tracker_id: 1)
+
+# new Date('1988-03-21')
