@@ -10,25 +10,8 @@ class Record {
         this.unit = unit
         Record.allRecords.push(this)
     }
-
-    
-
-    selectDay(e){
-        let timestamp = new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            i
-        ).getTime()
-        document.querySelector(".cell.today")?.classList.remove("today");
-            cell.classList.add("today");
-            debugger
-            Record.addRecord(today)
-        if (timestamp === today.getTime()) {
-            cell.classList.add("today");
-      } 
+    static addRecord(today){
+        debugger
+        
     }
-    // addRecord(dayDate){
-    //     debugger
-    // }
-
 }

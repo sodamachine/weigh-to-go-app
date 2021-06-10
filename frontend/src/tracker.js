@@ -13,7 +13,6 @@ class Tracker {
         this.name = name
         this.id = id
         this.records = records.map(record => new Record(record))
-        
         Tracker.allTrackers.push(this)
     }
 
@@ -28,24 +27,6 @@ class Tracker {
         // })
         trackerDiv.append(trackerBtn)
     }
-
-    // static appendDays(){
-    //     const days = document.createElement("div")
-    //     for (let i = 1; i < today.getDay(); i++){
-    //         let dayBlank = document.createElement("span")
-    //         dayBlank.classList.add("cell")
-    //         dayBlank.classList.add("empty")
-    //         days.appendChild(dayBlank)
-    //     }
-    //     for (let i = 1; i <= monthLength; i++){
-    //         let dayDate = document.createElement("span")
-    //         dayDate.addEventListener('click', Record.selectDay)
-    //         dayDate.classList.add("cell")
-    //         dayDate.innerText = i
-    //         days.appendChild(dayDate)
-    //     }
-    //     calendar.appendChild(days)
-    // }
 
     // static appendRecords(dayDate){
         
@@ -81,7 +62,7 @@ class Tracker {
         }
         trackerBar.append(trackerForm)
         trackerBar.append(trackerDiv)
-        Tracker.appendHeader()
+        Tracker.appendMonthWeekdays()
     }
 
     static addTracker(e){
@@ -109,7 +90,7 @@ class Tracker {
         })
     }
 
-    static appendHeader(){
+    static appendMonthWeekdays(){
         const monthList = new Array(
             "January",
             "February",
@@ -139,17 +120,36 @@ class Tracker {
             weekday.classList.add("cell")
             weekday.classList.add("day")
             weekday.innerText = weekdayList[i]
-            weekdayDiv.appendChild(weekday)
+            weekdayDiv.append(weekday)
         }
         header.classList.add("header")
         monthDiv.classList.add("month")
         weekdayDiv.classList.add("weekday")
-        header.appendChild(monthDiv)
-        calendar.appendChild(header)
-        calendar.appendChild(weekdayDiv)
+        header.append(monthDiv)
+        calendar.append(header)
+        calendar.append(weekdayDiv)
+        Tracker.appendDays()
+    }
 
-
-
+    static appendDays(){
+        for (let i = 1; i < today.getDay(); i++){
+            let dayBlank = document.createElement("span")
+            dayBlank.classList.add("cell")
+            dayBlank.classList.add("empty")
+            dayDiv.append(dayBlank)
+        }
+        for (let i = 1; i <= monthLength; i++){
+            let dayDate = document.createElement("span")
+            dayDate.addEventListener('click', () => {
+                document.querySelector(".cell.today")?.classList.remove("today")
+                dayDate.classList.add("today")
+                Record.addRecord(today)
+            })
+            dayDate.classList.add("cell")
+            dayDate.innerText = i
+            dayDiv.append(dayDate)
+        }
+        calendar.append(dayDiv)
     }
 
 }
