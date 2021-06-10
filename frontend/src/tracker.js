@@ -7,10 +7,13 @@ let monthLength = new Date(
 
 class Tracker {
 
+    static allTrackers = []
+
     constructor({name, id, records}){
         this.name = name
         this.id = id
         this.records = records.map(record => new Record(record))
+        Tracker.allTrackers.push(this)
     }
 
     appendTracker(){
@@ -79,8 +82,7 @@ class Tracker {
             daySpan.addEventListener('click', () => {
                 // document.querySelector(".cell.selectday")?.classList.remove("today")
                 daySpan.classList.add("today")
-                debugger
-                this.appendRecordForm(daySpan, today)
+                this.appendRecordForm(daySpan)
             })
             daySpan.classList.add("cell")
             daySpan.innerText = i
@@ -99,8 +101,7 @@ class Tracker {
         }
     }
 
-    appendRecordForm(daySpan, today){
-        debugger
+    appendRecordForm(daySpan){
         const recordForm = document.createElement("form")
         recordForm.innerHTML = `
             <form id="recordForm">
@@ -109,7 +110,7 @@ class Tracker {
             </form>
         `
         recordForm.addEventListener('submit', (e) => {
-            Record.addRecord(e, daySpan, today)
+            Record.addRecord(e, daySpan)
         })
         trackerForm.append(recordForm)
     }

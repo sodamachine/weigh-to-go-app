@@ -21,10 +21,14 @@ class Record {
         daySpan.append(recordSpan)
     }
 
-    static addRecord(e, daySpan, today){
+    static addRecord(e, daySpan){
         const userInput = e.target.children[0].value
         const trackerId = daySpan.id
-        const date = `${today.getFullYear()}/${today.getMonth()}/${daySpan.innerText}`
+        const date = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            daySpan.innerText
+        )
         const body = {
             record: {
                 date: date,
@@ -45,8 +49,8 @@ class Record {
         .then(jsonToJS)
         .then(record => {
             debugger
-            // let ul = document.getElementById(`list-${todo.list_id}`)
             let newRecord = new Record(record)
+            
             newRecord.appendRecord(daySpan)
         })
     }

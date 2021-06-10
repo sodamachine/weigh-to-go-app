@@ -14,6 +14,12 @@ class TrackersController < ApplicationController
         render json: tracker
     end
 
+    def destroy
+        tracker = Tracker.find_by(id: params[:id])
+        tracker.destroy
+        render json: {message: "Succesfully deleted"}
+    end
+
     private
 
         def tracker_params

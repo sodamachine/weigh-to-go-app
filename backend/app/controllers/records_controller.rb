@@ -14,6 +14,12 @@ class RecordsController < ApplicationController
         render json: record
     end
 
+    def destroy
+        record = Record.find_by(id: params[:id])
+        record.destroy
+        render json: {message: "Succesfully deleted"}
+    end
+
     private
 
         def record_params
