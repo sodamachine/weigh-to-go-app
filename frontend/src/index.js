@@ -7,7 +7,7 @@ const calendar = document.getElementById("calendar")
         const trackerDiv = document.getElementById("trackerDiv")
 
     const header = document.getElementById("header")
-        const month = document.getElementById("month")
+        const monthDiv = document.getElementById("monthDiv")
     const weekdayDiv = document.getElementById("weekdayDiv")
     const dayDiv = document.getElementById("dayDiv")
 

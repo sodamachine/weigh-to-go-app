@@ -9,8 +9,13 @@ class RecordsController < ApplicationController
         render json: record
     end
 
+    def create
+        record = Record.create(record_params)
+        render json: record
+    end
+
     private
-    
+
         def record_params
             params.require(:record).permit(:date, :num, :unit, :tracker_id, :id)
         end
