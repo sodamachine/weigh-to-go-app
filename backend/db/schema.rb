@@ -14,8 +14,7 @@ ActiveRecord::Schema.define(version: 2021_06_09_072401) do
 
   create_table "records", force: :cascade do |t|
     t.date "date"
-    t.integer "num"
-    t.string "unit"
+    t.string "content"
     t.integer "tracker_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

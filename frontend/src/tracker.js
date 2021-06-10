@@ -7,90 +7,25 @@ let monthLength = new Date(
 
 class Tracker {
 
-    static allTrackers = []
-
     constructor({name, id, records}){
         this.name = name
         this.id = id
         this.records = records.map(record => new Record(record))
-        Tracker.allTrackers.push(this)
     }
 
     appendTracker(){
         const trackerBtn = document.createElement("button")
         trackerBtn.innerText = this.name
-        // trackerBtn.id = this.id
+        trackerBtn.id = this.id
         trackerBtn.classList.add("button")
-        // trackerBtn.addEventListener('click', (e) => {
-        //     debugger
-        //     // () => Record.appendDays(trackerBtn.id)) this.renderListShowPage.bind(this)
-        // })
+        trackerBtn.addEventListener('click', this.appendMonthWeekdays.bind(this))
         trackerDiv.append(trackerBtn)
     }
 
-    // static appendRecords(dayDate){
-        
-    //     for (record of Record.allRecords){
-    //         debugger
-    //         // if (trackerId > 0){
-    //             record.tracker.id == trackerId
-    //             let date = new Date(`${record.date}`).getDate()
-    //         // }
-    //         // if (date == i-1){
-    //         //     dayDate.innerHTML += `<li>${record.num} ${record.unit}</li>`
-    //         // }
-    //     }
-    // }
-
-    static fetchTrackers(){
-        fetch("http://localhost:3000/trackers")
-        .then(jsonToJS)
-        .then(this.appendTrackerBar)
-    }
-    
-    static appendTrackerBar(trackers){
-        trackerForm.innerHTML = `
-            <form id="trackerForm">
-                <input type="text">
-                <input type="submit" value="Add a new tracker">
-            </form>
-        `
-        document.getElementById("trackerForm").addEventListener('submit', Tracker.addTracker)
-        for (let tracker of trackers){
-            let newTracker = new Tracker(tracker)
-            newTracker.appendTracker()
-        }
-        trackerBar.append(trackerForm)
-        trackerBar.append(trackerDiv)
-        Tracker.appendMonthWeekdays()
-    }
-
-    static addTracker(e){
-        e.preventDefault()
-        const userInput = e.target.children[0].value
-        const body = {
-            tracker: {
-                name: userInput
-            }
-        }
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            body: JSON.stringify(body)
-        }
-        e.target.reset()
-        fetch("http://localhost:3000/trackers", options)
-        .then(jsonToJS)
-        .then(tracker => {
-            let newTracker = new Tracker(tracker)
-            newTracker.appendTracker()
-        })
-    }
-
-    static appendMonthWeekdays(){
+    appendMonthWeekdays(){
+        header.remove()
+        weekdayDiv.remove()
+        dayDiv.remove()
         const monthList = new Array(
             "January",
             "February",
@@ -128,10 +63,10 @@ class Tracker {
         header.append(monthDiv)
         calendar.append(header)
         calendar.append(weekdayDiv)
-        Tracker.appendDays()
+        this.appendDays()
     }
 
-    static appendDays(){
+    appendDays(){
         for (let i = 1; i < today.getDay(); i++){
             let dayBlank = document.createElement("span")
             dayBlank.classList.add("cell")
@@ -139,17 +74,104 @@ class Tracker {
             dayDiv.append(dayBlank)
         }
         for (let i = 1; i <= monthLength; i++){
-            let dayDate = document.createElement("span")
-            dayDate.addEventListener('click', () => {
-                document.querySelector(".cell.today")?.classList.remove("today")
-                dayDate.classList.add("today")
-                Record.addRecord(today)
+            let daySpan = document.createElement("span")
+            daySpan.id = this.id
+            daySpan.addEventListener('click', () => {
+                // document.querySelector(".cell.selectday")?.classList.remove("today")
+                daySpan.classList.add("today")
+                debugger
+                this.appendRecordForm(daySpan, today)
             })
-            dayDate.classList.add("cell")
-            dayDate.innerText = i
-            dayDiv.append(dayDate)
+            daySpan.classList.add("cell")
+            daySpan.innerText = i
+            this.appendRecords(daySpan)
+            dayDiv.append(daySpan)
         }
         calendar.append(dayDiv)
+    }
+    
+    appendRecords(daySpan){
+        const recordSpan = document.createElement("span")
+        recordSpan.id = daySpan.innerText
+        daySpan.append(recordSpan)
+        for (let record of this.records){
+            record.appendRecord(recordSpan)
+        }
+    }
+
+    appendRecordForm(daySpan, today){
+        debugger
+        const recordForm = document.createElement("form")
+        recordForm.innerHTML = `
+            <form id="recordForm">
+            <input type="text">
+            <input type="submit" value="Log your day">
+            </form>
+        `
+        recordForm.addEventListener('submit', (e) => {
+            Record.addRecord(e, daySpan, today)
+        })
+        trackerForm.append(recordForm)
+    }
+    // static appendRecords(dayDate){
+        
+    //     for (record of Record.allRecords){
+    //         debugger
+    //         // if (trackerId > 0){
+    //             record.tracker.id == trackerId
+    //             let date = new Date(`${record.date}`).getDate()
+    //         // }
+    //         // if (date == i-1){
+    //         //     dayDate.innerHTML += `<li>${record.num} ${record.unit}</li>`
+    //         // }
+    //     }
+    // }
+
+    static fetchTrackers(){
+        fetch("http://localhost:3000/trackers")
+        .then(jsonToJS)
+        .then(this.appendTrackerBar)
+    }
+    
+    static appendTrackerBar(trackers){
+        for (let tracker of trackers){
+            let newTracker = new Tracker(tracker)
+            newTracker.appendTracker()
+        }
+        trackerForm.innerHTML = `
+            <form id="trackerForm">
+                <input type="text">
+                <input type="submit" value="Add a new tracker">
+            </form>
+        `
+        trackerForm.addEventListener('submit', Tracker.addTracker)
+        trackerBar.append(trackerDiv)
+        trackerBar.append(trackerForm)
+    }
+
+    static addTracker(e){
+        e.preventDefault()
+        const userInput = e.target.children[0].value
+        const body = {
+            tracker: {
+                name: userInput
+            }
+        }
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+        e.target.reset()
+        fetch("http://localhost:3000/trackers", options)
+        .then(jsonToJS)
+        .then(tracker => {
+            let newTracker = new Tracker(tracker)
+            newTracker.appendTracker()
+        })
     }
 
 }

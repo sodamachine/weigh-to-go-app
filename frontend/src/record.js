@@ -2,16 +2,52 @@ class Record {
 
     static allRecords = []
 
-    constructor({date, id, num, tracker_id, unit}){
+    constructor({date, id, content, tracker_id}){
         this.date = date
         this.id = id
-        this.num = num
+        this.content = content
         this.trackerId = tracker_id
-        this.unit = unit
         Record.allRecords.push(this)
     }
-    static addRecord(today){
-        debugger
-        
+
+    appendRecord(daySpan){
+        const recordSpan = document.createElement("span")
+        let day = new Date(`${this.date}`).getDate()
+        if (day === daySpan.id){
+            const li = document.createElement("li")
+            li.innerText = `${this.num} ${this.unit}`
+            recordSpan.append(li)
+        }
+        daySpan.append(recordSpan)
+    }
+
+    static addRecord(e, daySpan, today){
+        const userInput = e.target.children[0].value
+        const trackerId = daySpan.id
+        const date = `${today.getFullYear()}/${today.getMonth()}/${daySpan.innerText}`
+        const body = {
+            record: {
+                date: date,
+                content: userInput,
+                tracker_id: trackerId
+            }
+        }
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+        e.target.reset()
+        fetch("http://localhost:3000/records", options)
+        .then(jsonToJS)
+        .then(record => {
+            debugger
+            // let ul = document.getElementById(`list-${todo.list_id}`)
+            let newRecord = new Record(record)
+            newRecord.appendRecord(daySpan)
+        })
     }
 }
