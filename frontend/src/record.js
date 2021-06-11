@@ -10,14 +10,34 @@ class Record {
         Record.allRecords.push(this)
     }
 
-    appendRecord(daySpan){
+    filterRecordByDate(daySpan){
         const recordSpan = document.createElement("span")
-        let day = new Date(`${this.date}`).getDate()
-        if (day === daySpan.id){
+        debugger
+        let day
+        debugger
+        if (daySpan.id < 10){
+            day = this.date[9]
+            debugger
+            if (day === daySpan.id){
+                this.appendRecord(daySpan)
+            }
+        } else{
+            day = this.date[8]+this.date[9]
+            debugger
+            if (day === daySpan.id){
+                this.appendRecord(daySpan)
+            }
+        }
+        debugger
+    }
+
+    appendRecord(daySpan){
+        debugger
+        
             const li = document.createElement("li")
             li.innerText = `${this.num} ${this.unit}`
             recordSpan.append(li)
-        }
+        
         daySpan.append(recordSpan)
     }
 
