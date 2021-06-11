@@ -11,44 +11,46 @@ class Record {
     }
 
     filterRecordByDate(daySpan){
-        const recordSpan = document.createElement("span")
-        debugger
         let day
-        debugger
         if (daySpan.id < 10){
             day = this.date[9]
-            debugger
             if (day === daySpan.id){
                 this.appendRecord(daySpan)
             }
         } else{
             day = this.date[8]+this.date[9]
-            debugger
             if (day === daySpan.id){
                 this.appendRecord(daySpan)
             }
         }
-        debugger
     }
 
     appendRecord(daySpan){
-        debugger
-        
-            const li = document.createElement("li")
-            li.innerText = `${this.num} ${this.unit}`
-            recordSpan.append(li)
-        
+        const recordSpan = document.createElement("span")
+        const li = document.createElement("li")
+        li.innerText = `${this.content}`
+        recordSpan.append(li)
         daySpan.append(recordSpan)
     }
 
-    static addRecord(e, daySpan){
-        const userInput = e.target.children[0].value
-        const trackerId = daySpan.id
-        const date = new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            daySpan.innerText
-        )
+    static showRecordForm(tracker, selectDate){
+        const recordForm = document.createElement("form")
+        recordForm.innerHTML = `
+            <form id="recordForm">
+                <label>Log your day:</label>
+                <input id="recordContent">
+                <input type="hidden" id="${tracker.id}" />
+                <input type="submit" value="Save">
+            </form>
+        `
+        recordForm.addEventListener('submit', (e) => Record.addRecord(e, selectDate))
+        trackerDiv.append(recordForm)
+    }
+
+    static addRecord(e, date){
+        e.preventDefault()
+        const userInput = recordContent.value
+        const trackerId = e.target.children[2].id
         const body = {
             record: {
                 date: date,
@@ -68,10 +70,8 @@ class Record {
         fetch("http://localhost:3000/records", options)
         .then(jsonToJS)
         .then(record => {
-            debugger
             let newRecord = new Record(record)
-            
-            newRecord.appendRecord(daySpan)
+            Tracker.appendTrackerDiv()
         })
     }
 }

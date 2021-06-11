@@ -9,7 +9,8 @@ const calendar = document.getElementById("calendar")
 
         const content = document.getElementById("content")
             const dayDiv = document.getElementById("dayDiv")
-
+        
+        const footer = document.getElementById("footer")
 
     // const trackerNav = document.getElementById("trackerNav")
     // const recordDiv = document.getElementById("recordDiv")

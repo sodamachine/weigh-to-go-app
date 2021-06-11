@@ -16,15 +16,6 @@ class Tracker {
         Tracker.allTrackers.push(this)
     }
 
-    appendDay(trackerId, dayDate, daySpan){
-        if (trackerId > 0){
-            // append records for this day with trackerId = id
-        } else{
-           // append all records for this day
-            // append records for this day with trackerId = id
-        }
-    }
-
     appendContent(){
         dayDiv.innerHTML = ""
         const deleteTrackerBtn = document.createElement("button")
@@ -44,6 +35,7 @@ class Tracker {
         for (let i = 1; i <= monthLength; i++){
             let daySpan = document.createElement("span")
             daySpan.id = i
+            daySpan.addEventListener('click', () => Record.showRecordForm(this, selectDate))
             let selectDate = new Date(
                 today.getFullYear(),
                 today.getMonth(),
@@ -56,20 +48,17 @@ class Tracker {
                 document.querySelector(".cell.today")?.classList.remove("today");
                 daySpan.classList.add("today");
             })
-            
-            // daySpan.innerText = i
-
+            daySpan.innerText = i
             for (let record of this.records){
                 record.filterRecordByDate(daySpan)
             }
 
             daySpan.classList.add("cell")
             daySpan.classList.add("day")
-
             dayDiv.append(daySpan)
         }
         content.append(dayDiv)
-        content.append(deleteTrackerBtn)
+        dayDiv.append(deleteTrackerBtn)
         calendar.append(content)
     }
 
@@ -132,7 +121,7 @@ class Tracker {
         .then(this.appendTrackerDiv)
     }
 
-    static appendTrackerDiv(trackers){
+    static appendTrackerDiv(trackers = this.allTrackers){
         trackerDiv.innerHTML = ""
         const addTrackerBtn = document.createElement("button")
         addTrackerBtn.innerText = "+Add a new tracker"
@@ -154,7 +143,7 @@ class Tracker {
         trackerForm.innerHTML = `
             <form id="trackerForm">
                 <label>Enter the name of your new tracker:</label>
-                <input type="text">
+                <input id="trackerName">
                 <input type="submit" value="Submit">
             </form>
         `
@@ -164,7 +153,7 @@ class Tracker {
 
     static addTracker(e){
         e.preventDefault()
-        const userInput = e.target.children[1].value
+        const userInput = trackerName.value
         const body = {
             tracker: {
                 name: userInput
@@ -188,40 +177,4 @@ class Tracker {
     }
 
     // calendar.append(content)
-
-//     appendRecords(daySpan){
-//         const recordSpan = document.createElement("span")
-//         recordSpan.id = daySpan.innerText
-//         daySpan.append(recordSpan)
-//         for (let record of this.records){
-//             record.appendRecord(recordSpan)
-//         }
-//     }
-
-//     appendRecordForm(daySpan){
-//         const recordForm = document.createElement("form")
-//         recordForm.innerHTML = `
-//             <form id="recordForm">
-//             <input type="text">
-//             <input type="submit" value="Log your day">
-//             </form>
-//         `
-//         recordForm.addEventListener('submit', (e) => {
-//             Record.addRecord(e, daySpan)
-//         })
-//         trackerForm.append(recordForm)
-//     }
-//     // static appendRecords(dayDate){
-        
-//     //     for (record of Record.allRecords){
-//     //         debugger
-//     //         // if (trackerId > 0){
-//     //             record.tracker.id == trackerId
-//     //             let date = new Date(`${record.date}`).getDate()
-//     //         // }
-//     //         // if (date == i-1){
-//     //         //     dayDate.innerHTML += `<li>${record.num} ${record.unit}</li>`
-//     //         // }
-//     //     }
-//     // }
 }
