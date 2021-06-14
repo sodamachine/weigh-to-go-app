@@ -71,7 +71,8 @@ class Record {
         .then(jsonToJS)
         .then(record => {
             let newRecord = new Record(record)
-            Tracker.appendTrackerDiv()
+            calendar.innerHTML = ""
+            Tracker.appendTrackers(Tracker.allTrackers)
         })
     }
 }

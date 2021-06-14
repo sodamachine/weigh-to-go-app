@@ -29,7 +29,7 @@ class Tracker {
         for (let i = 0; i < currentMonthFirstDay; i++){
             let dayBlank = document.createElement("span")
             dayBlank.classList.add("cell")
-            dayBlank.classList.add("empty")
+            // dayBlank.classList.add("empty")
             dayDiv.append(dayBlank)
         }
         for (let i = 1; i <= monthLength; i++){
@@ -67,10 +67,47 @@ class Tracker {
             method: "DELETE"
         }).then(jsonToJS)
         .then(m => {
-            // calendar.children[0].remove()
+            // for (tracker of Tracker.allTrackers){
+            //     for (let i = 0; i < Tracker.allTrackers.length; i++){
+            //         if (tracker == this){
+            //             delete Tracker.allTrackers[i]
+            //         }
+            //     }
+            // }
+            // debugger
             Tracker.allTrackers = Tracker.allTrackers.filter(tracker => tracker.id !== this.id)
-            Tracker.appendTrackerDiv(Tracker.allTrackers)
+            calendar.children[0].remove()
+            calendar.innerHTML = ""
+            Tracker.appendTrackers(Tracker.allTrackers)
         })
+    }    
+    
+    static fetchTrackers(){
+        fetch("http://localhost:3000/trackers")
+        .then(jsonToJS)
+        .then(this.appendTrackers)
+    }
+
+    static appendTrackers(trackers){
+        trackerForm.innerHTML = `
+            <form id="trackerForm">
+                <label>Add a new tracker:</label>
+                <input id="trackerName">
+                <input type="submit" value="Submit">
+            </form>
+        `
+        trackerForm.addEventListener('submit', Tracker.addTracker)
+        for (let tracker of trackers){
+            let newTracker = new Tracker(tracker)
+            const trackerBtn = document.createElement("button")
+            trackerBtn.innerText = newTracker.name
+            trackerBtn.id = newTracker.id
+            trackerBtn.classList.add("button")
+            trackerBtn.addEventListener('click', () => newTracker.appendContent())
+            trackerDiv.append(trackerBtn)
+        }
+        trackerDiv.append(trackerForm)
+        Tracker.appendHeader()
     }
 
     static appendHeader(){
@@ -108,47 +145,10 @@ class Tracker {
         header.classList.add("header")
         monthDiv.classList.add("month")
         weekdayDiv.classList.add("weekday")
-        calendar.append(header)
         header.append(monthDiv)
         header.append(trackerDiv)
+        calendar.append(header)
         calendar.append(weekdayDiv)
-        this.fetchTrackers()
-    }
-
-    static fetchTrackers(){
-        fetch("http://localhost:3000/trackers")
-        .then(jsonToJS)
-        .then(this.appendTrackerDiv)
-    }
-
-    static appendTrackerDiv(trackers = this.allTrackers){
-        trackerDiv.innerHTML = ""
-        const addTrackerBtn = document.createElement("button")
-        addTrackerBtn.innerText = "+Add a new tracker"
-        addTrackerBtn.classList.add("button")
-        addTrackerBtn.addEventListener('click', Tracker.showTrackerForm)
-        for (let tracker of trackers){
-            let newTracker = new Tracker(tracker)
-            const trackerBtn = document.createElement("button")
-            trackerBtn.innerText = newTracker.name
-            trackerBtn.classList.add("button")
-            trackerBtn.addEventListener('click', () => newTracker.appendContent())
-            trackerDiv.append(trackerBtn)
-        }
-        trackerDiv.append(addTrackerBtn)
-    }
-
-    static showTrackerForm(){
-        const trackerForm = document.createElement("form")
-        trackerForm.innerHTML = `
-            <form id="trackerForm">
-                <label>Enter the name of your new tracker:</label>
-                <input id="trackerName">
-                <input type="submit" value="Submit">
-            </form>
-        `
-        trackerForm.addEventListener('submit', Tracker.addTracker)
-        trackerDiv.append(trackerForm)
     }
 
     static addTracker(e){
@@ -167,12 +167,15 @@ class Tracker {
             },
             body: JSON.stringify(body)
         }
-        e.target.reset()
+        // e.target.reset()
         fetch("http://localhost:3000/trackers", options)
         .then(jsonToJS)
         .then(tracker => {
             let newTracker = new Tracker(tracker)
-            Tracker.appendTrackerDiv(Tracker.allTrackers)
+            calendar.innerHTML = ""
+            Tracker.appendTrackers(Tracker.allTrackers)
+            // trackerDiv.innerHTML = ""
+            // Tracker.appendTrackerDiv(Tracker.allTrackers)
         })
     }
 

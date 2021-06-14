@@ -26,12 +26,10 @@
     display: inline-block;
     font-weight: bold;
   }
-
-  
   
   #calendar button {
     background: none;
-    color: #f5aba6;
+    color: #ff574a;
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
@@ -40,7 +38,7 @@
   }
   
   #calendar .cell {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     background: #fff;
     color: #5d5d5d;
     box-sizing: border-box;
@@ -75,8 +73,8 @@
     }
 
   #calendar .weekday {
-    border: 1px solid black;
-    background: #fff;
+    /* border: 1px solid black; */
+    background: #ff574a;
     color: #5d5d5d;
     /* box-sizing: border-box; */
     /* display: inline-block; */

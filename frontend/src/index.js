@@ -1,3 +1,5 @@
+const trackerForm = document.getElementById("trackerForm")
+trackerForm.addEventListener("submit", Tracker.addTracker)
 
 const calendar = document.getElementById("calendar")
 
@@ -22,7 +24,7 @@ function jsonToJS(resp) {
     return resp.json()
 }
 
-Tracker.appendHeader()
+Tracker.fetchTrackers()
 
 
 // header.remove()
